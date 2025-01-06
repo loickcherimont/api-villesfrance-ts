@@ -1,51 +1,5 @@
-import './stylesheets/general.css';
-// import './ts/tmp/script.ts';
-import { City } from './ts/components/city.ts';
-import { countResults, fetchFranceCities, uiReset } from './ts/utils/functions.ts';
-
-document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
-    <!-- FORM -->
-    <!-- Error message for not valid requests -->
-    <div class="container d-flex flex-column justify-content-around" style="height: auto;">
-        <h1 class="text-primary-emphasis text-center display-h1">Villes de France 🇫🇷</h1>
-        <div class="mt-2 d-none alert alert-danger" role="alert" id="error">
-            Veuillez entrer un nom de ville française valide!
-        </div>
-        <form id="form" autocomplete="off" method="get" class="d-flex">
-            
-            <div class="input-group mb-3 d-flex flex-column flex-md-row gap-3">
-                <label for="userRequestCity" class="form-label w-100 text-center text-md-start">Entrer le nom d'une commune de France :</label>
-                <input type="text" class="form-control rounded d-inline-flex" name="user_request" id="userRequestCity"
-                    placeholder="Paris, Marseille, ...">
-                <button type="submit" class="btn btn-outline-primary rounded" id="btnSubmit ">Rechercher</button>
-            </div>
-
-        </form>
-        <!-- Show all found cities -->
-        <div id="results"></div>
-        <hr>
-        <footer class="py-3 my-4">
-            <p class="text-center text-muted">&copy; 2024 - Loick Cherimont</p>
-        </footer>
-    </div>
-
-    <!-- Templates -->
-    <template id="cardLayout">
-        <div class="mt-2 card">
-            <div class="card-body">
-                <h5 class="card-title text-muted">Nom : <span class="text-primary-emphasis" id="cityName"></span></h5>
-                <h6 class="card-text mb-2 text-muted">Code departement : <span class="text-primary-emphasis"
-                        id="cityDepartmentCode"></span></h6>
-                <p class="card-text text-muted">Nombre d'habitants : <span class="text-primary-emphasis"
-                        id="cityPopulation"></span></p>
-                <p class="card-text text-muted">Codes postaux : <span class="text-primary-emphasis"
-                        id="cityZips"></span></p>
-            </div>
-        </div>
-    </template>
-`
-
-
+import { City } from '../components/city.ts';
+import { countResults, fetchFranceCities, uiReset } from "../utils/functions.ts";
 
 const cities = await fetchFranceCities("https://geo.api.gouv.fr/communes");
 
@@ -64,7 +18,6 @@ document.getElementById('form')?.addEventListener('submit', (ev: Event) => {
         const form = ev.target as HTMLFormElement;
 
         let formData = new FormData(form);
-
         let q = prepare(formData.get('user_request'), cities);
 
         if(!q) {
@@ -134,6 +87,7 @@ function uiDisplay(query: string, data: Array<City>) {
             cityCardTemplate.content.cloneNode(true);
 
             let cityCard = cityCardTemplate.querySelector<HTMLDivElement>('.card')!;
+
 
             cityCard.querySelector<HTMLSpanElement>('#cityName')!.innerText = city['nom'];
             cityCard.querySelector<HTMLSpanElement>('#cityDepartmentCode')!.innerText = city['departmentCode'];
