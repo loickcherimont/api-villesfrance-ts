@@ -83,10 +83,12 @@ npm run dev
 
 > :information_source: En cas de saisie non valide, l'application renvoie un message d'erreur
 
-
-## :rocket: Fonctionnalités
+## :hammer_and_wrench: Maintenance
+### :rocket: Fonctionnalités
 - Ajouter le nom du département
 
+### Correction
+- [main.ts](./src/main.ts) `uiDisplay` en erreur avec *cityCard* qui est null
 <!-- 
 ### API en elle-même :gear:
 - [x] Traiter les doublons (Saint-Denis), créer de nouvelles cartes d'informations pour chacun
