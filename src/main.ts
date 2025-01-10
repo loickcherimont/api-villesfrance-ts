@@ -1,5 +1,4 @@
 import './stylesheets/general.css';
-// import './ts/tmp/script.ts';
 import { City } from './ts/components/city.ts';
 import { countResults, fetchFranceCities, uiReset } from './ts/utils/functions.ts';
 
@@ -84,13 +83,7 @@ function prepare(query: FormDataEntryValue | null, data: Array<City>) {
     let onlyNames = [];
     const emptyError = document.querySelector<HTMLDivElement>('#error')!;
 
-    // if(query !== undefined || query !== null) {
     query = query!.toString().trim();
-    // }
-
-
-
-    // console.log(query, query.length)
 
     // Check if request is empty
     // to display error message
@@ -131,14 +124,16 @@ function uiDisplay(query: string, data: Array<City>) {
 
         if (caseInsensitiveCity === query.toLowerCase()) {
             let cityCardTemplate = document.getElementById('cardLayout') as HTMLTemplateElement;
-            cityCardTemplate.content.cloneNode(true);
 
-            let cityCard = cityCardTemplate.querySelector<HTMLDivElement>('.card')!;
+            // Clone '.card' element
+            // Use it to display results of researches
+            let cityCard = cityCardTemplate.content.cloneNode(true) as DocumentFragment;
+
 
             cityCard.querySelector<HTMLSpanElement>('#cityName')!.innerText = city['nom'];
-            cityCard.querySelector<HTMLSpanElement>('#cityDepartmentCode')!.innerText = city['departmentCode'];
+            cityCard.querySelector<HTMLSpanElement>('#cityDepartmentCode')!.innerText = city['codeDepartement'];
             cityCard.querySelector<HTMLSpanElement>('#cityPopulation')!.innerText = city['population'].toString();
-            cityCard.querySelector<HTMLSpanElement>('#cityZips')!.innerText = city['zips'].toString();
+            cityCard.querySelector<HTMLSpanElement>('#cityZips')!.innerText = city['codesPostaux'].toString();
 
             document.querySelector('#results')?.append(cityCard);
         }
