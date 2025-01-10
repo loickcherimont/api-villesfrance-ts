@@ -1,21 +1,8 @@
+// Template for each city
+// Found by user using search bar
 export interface City {
     nom: string;
-    departmentCode: string;
+    codeDepartement: string;
     population: number;
-    zips: string[];
+    codesPostaux: string[];
 }
-
-/*
-        let caseInsensitiveCity = city['nom'].toLowerCase();
-
-        if (caseInsensitiveCity === query.toLowerCase()) {
-            let cityCardTemplate = document.getElementById('cardLayout').content.cloneNode(true);
-            let cityCard = cityCardTemplate.querySelector('.card');
-
-            cityCard.querySelector('#cityName').innerText = city['nom'];
-            cityCard.querySelector('#cityDepartmentCode').innerText = city['codeDepartement'];
-            cityCard.querySelector('#cityPopulation').innerText = city['population'];
-            cityCard.querySelector('#cityZips').innerText = city['codesPostaux'];
-        }
-
-*/
