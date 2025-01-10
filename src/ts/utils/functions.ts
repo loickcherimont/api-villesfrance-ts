@@ -9,7 +9,8 @@ export async function fetchFranceCities(url: string): Promise<any> {
 
 // Indicate how many cities were found
 export function countResults(): void {
-    const cards  = document.querySelector<HTMLDivElement>('results')?.querySelectorAll('.card');
+    
+    const cards = document.getElementById('results')?.querySelectorAll('.card');
     
     let resultsIndicator = document.createElement('p');
     resultsIndicator.setAttribute('class', 'mt-2 fs-2 text-primary-emphasis text-center fw-semibold');
