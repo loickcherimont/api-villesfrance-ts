@@ -88,22 +88,19 @@ npm run dev
 - Ajouter le nom du département
 
 ### Correction
-- [main.ts](./src/main.ts) `uiDisplay` en erreur avec *cityCard* qui est null
+- [x] [main.ts](./src/main.ts) `uiDisplay` en erreur avec *cityCard* qui est null
 <!-- 
 ### API en elle-même :gear:
-- [x] Traiter les doublons (Saint-Denis), créer de nouvelles cartes d'informations pour chacun
+- mettre une image de la ville dans le cadre (autre APi?)
+- Implémenter un mode dark
+- Mettre en carré/grille les résultats
+- remplacer le message rouge agressif par un message doux "Aucune ville retrouvée. Réessayer" à la place des grilles si les résultats sont vides
+- Si l'APi n'est pas joignable afficher un message à l'utilisateur
+
 - [ ] Si en France, afficher par défaut la ville de l'utilisateur
 
 #### Prioritaires :warning:
-- [x] Sécuriser l'API contre les malfaiteurs (Injection code, etc)
 - [ ] Permettre à l'utilisateur d'entrer des valeurs sans accents
-
-### Donnons lui du beau :sparkles:
-- [ ] Formater l'affichage des **codes postaux**
-- [x] Afficher message d'erreur si nom de ville non identifiée/vide
-- [x] Rendre le formulaire case-insensitive
-- [x] Préparer la requête avant soumission (trim, ...)
-- [ ] Afficher les villes en grille (Flexbox) en gardant les résultats au-dessus
 
 ### Structurer le code
 - [ ] Scinder la fonction `getCityInformations` en d'autres fonctions (trop de logiques!)
