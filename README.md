@@ -85,11 +85,13 @@ npm run dev
 
 ## :hammer_and_wrench: Maintenance
 ### :rocket: Fonctionnalités
-- Ajouter le nom du département
 
 ### Correction
 - [x] [main.ts](./src/main.ts) `uiDisplay` en erreur avec *cityCard* qui est null
+- [ ] Refactoriser le code
 <!-- 
+
+FOR NEXT UPDATES! (March 2025)
 ### API en elle-même :gear:
 - mettre une image de la ville dans le cadre (autre APi?)
 - Implémenter un mode dark
@@ -115,4 +117,4 @@ Créé par Loïck CHERIMONT
 
 Sous Licence MIT  
 
-Dernière édition : 2025-01-06
+Dernière édition : 2025-01-11
