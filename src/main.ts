@@ -1,7 +1,10 @@
+// IMPORTS
 import './stylesheets/general.css';
-import { City } from './ts/components/city.ts';
+import { City } from './ts/components/City.ts';
 import { countResults, fetchFranceCities, toggleDarkLightMode, uiReset } from './ts/utils/functions.ts';
 
+
+// MAIN
 document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
     <button id='modeToggler' type='button' class='btn btn-primary'>Dark/Light Mode</button>
     <!-- FORM -->
@@ -31,35 +34,20 @@ document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
             <p class="text-center text-muted">&copy; 2024 - Loick Cherimont</p>
         </footer>
     </div>
-
-    <!-- Templates -->
-<!--    <template id="cardLayout">
-        <div class="mt-2 card">
-            <div class="card-body">
-                <h5 class="card-title text-muted">Nom : <span class="text-primary-emphasis" id="cityName"></span></h5>
-                <h6 class="card-text mb-2 text-muted">Code departement : <span class="text-primary-emphasis"
-                        id="cityDepartmentCode"></span></h6>
-                <p class="card-text text-muted">Nombre d'habitants : <span class="text-primary-emphasis"
-                        id="cityPopulation"></span></p>
-                <p class="card-text text-muted">Codes postaux : <span class="text-primary-emphasis"
-                        id="cityZips"></span></p>
-            </div>
-        </div>
-    </template> -->
 `
 
 
 
-
-
-// Utilité?
 const cities = await fetchFranceCities('https://geo.api.gouv.fr/communes?&fields=code,nom,departement,codesPostaux,population');
+
+// Utility ?
 try {
     // How to use this try block
 } catch (e) {
     console.error(e);
 }
 
+// FUNCTIONS
 document.getElementById('form')?.addEventListener('submit', (ev: Event) => {
         ev.preventDefault();
         uiReset();
@@ -89,7 +77,7 @@ function prepare(query: FormDataEntryValue | null, data: Array<City>) {
     query = query!.toString().trim();
 
     // Check if request is empty
-    // to display error message
+    // To display error message
     if (!query) {
         emptyError.classList.remove('d-none');
         return query
@@ -98,8 +86,6 @@ function prepare(query: FormDataEntryValue | null, data: Array<City>) {
     }
 
     // Create an array containing only city names
-    // onlyNames = data.map(city => city['nom'].toLowerCase());
-    // console.log(data);
     onlyNames = data.map(city => city['nom'].toLowerCase())
 
     if (onlyNames.indexOf(query.toLowerCase()) === -1) {
@@ -146,15 +132,12 @@ function uiDisplay(query: string, data: Array<City>) {
                 const codePostalItem = document.createElement('span');
                 codePostalItem.setAttribute('class', 'badge text-bg-primary');
                 codePostalItem.innerText = codePostal;
-
-                //           <span class="badge text-bg-primary">44000</span>
                 cityCard.querySelector<HTMLSpanElement>('#cityZips')?.appendChild(codePostalItem);
             });
-            // cityCard.querySelector<HTMLSpanElement>('#cityZips')!.innerText = city['codesPostaux'].toString();
-
             document.querySelector('#results')?.append(cityCard);
         }
     });
 }
 
+// Change between dark and light appearance
 document.getElementById('modeToggler')?.addEventListener('click', toggleDarkLightMode);
