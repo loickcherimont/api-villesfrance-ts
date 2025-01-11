@@ -9,6 +9,8 @@ export async function fetchFranceCities(url: string): Promise<any> {
 
 // Indicate how many cities were found
 export function countResults(): void {
+
+    document.getElementById('resultsDigits')!.innerHTML = '';
     
     const cards = document.getElementById('results')?.querySelectorAll('.card');
     
@@ -17,11 +19,22 @@ export function countResults(): void {
 
     resultsIndicator.innerText = cards!.length > 1 ? `${cards?.length} villes trouvées`:`${cards?.length} ville trouvée`;
 
-    document.getElementById('results')?.prepend(resultsIndicator);
+    document.getElementById('resultsDigits')?.prepend(resultsIndicator);
 
 }
 
 // Empty UI results
 export const uiReset = (): void => {
     document.getElementById('results')!.innerHTML = '';
+}
+
+export function toggleDarkLightMode(): void {
+    const website = document.querySelector('html');
+
+    if(website?.getAttribute('data-bs-theme') === 'dark') {
+        website?.setAttribute('data-bs-theme', '');
+        return;
+    }
+
+    website?.setAttribute('data-bs-theme', 'dark');
 }
