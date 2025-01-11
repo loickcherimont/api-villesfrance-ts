@@ -1,11 +1,12 @@
 import './stylesheets/general.css';
 import { City } from './ts/components/city.ts';
-import { countResults, fetchFranceCities, uiReset } from './ts/utils/functions.ts';
+import { countResults, fetchFranceCities, toggleDarkLightMode, uiReset } from './ts/utils/functions.ts';
 
 document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
+    <button id='modeToggler' type='button' class='btn btn-primary'>Dark/Light Mode</button>
     <!-- FORM -->
     <!-- Error message for not valid requests -->
-    <div class="container d-flex flex-column justify-content-around" style="height: auto;">
+    <div class='container d-flex flex-column justify-content-around' style='height: auto;'>
         <h1 class="text-primary-emphasis text-center display-h1">Villes de France 🇫🇷</h1>
         <div class="mt-2 d-none alert alert-danger" role="alert" id="error">
             Veuillez entrer un nom de ville française valide!
@@ -21,7 +22,10 @@ document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
 
         </form>
         <!-- Show all found cities -->
-        <div id="results"></div>
+        <!-- The number of found cities
+        <div id='resultsDigits'></div>
+        <!-- The HTML elements for each cities here -->
+        <div id='results' class='d-flex flex-wrap'></div>
         <hr>
         <footer class="py-3 my-4">
             <p class="text-center text-muted">&copy; 2024 - Loick Cherimont</p>
@@ -29,7 +33,7 @@ document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
     </div>
 
     <!-- Templates -->
-    <template id="cardLayout">
+<!--    <template id="cardLayout">
         <div class="mt-2 card">
             <div class="card-body">
                 <h5 class="card-title text-muted">Nom : <span class="text-primary-emphasis" id="cityName"></span></h5>
@@ -41,18 +45,17 @@ document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
                         id="cityZips"></span></p>
             </div>
         </div>
-    </template>
+    </template> -->
 `
 
 
 
-const cities = await fetchFranceCities("https://geo.api.gouv.fr/communes");
 
 
 // Utilité?
+const cities = await fetchFranceCities('https://geo.api.gouv.fr/communes?&fields=code,nom,departement,codesPostaux,population');
 try {
-    // const cities = await fetchFranceCities("https://geo.api.gouv.fr/communes");
-    // process(cities);
+    // How to use this try block
 } catch (e) {
     console.error(e);
 }
@@ -129,13 +132,29 @@ function uiDisplay(query: string, data: Array<City>) {
             // Use it to display results of researches
             let cityCard = cityCardTemplate.content.cloneNode(true) as DocumentFragment;
 
+            console.log(city);
 
-            cityCard.querySelector<HTMLSpanElement>('#cityName')!.innerText = city['nom'];
-            cityCard.querySelector<HTMLSpanElement>('#cityDepartmentCode')!.innerText = city['codeDepartement'];
-            cityCard.querySelector<HTMLSpanElement>('#cityPopulation')!.innerText = city['population'].toString();
-            cityCard.querySelector<HTMLSpanElement>('#cityZips')!.innerText = city['codesPostaux'].toString();
+
+            cityCard.querySelector<HTMLSpanElement>('#cityName')!.innerText = city['nom'].toUpperCase();
+            cityCard.querySelector<HTMLSpanElement>('#cityDepartmentInfos')!.innerText = `${city.departement.code.toString()} - ${city.departement.nom}`;
+            cityCard.querySelector<HTMLSpanElement>('#cityPopulation')!.innerText = `${city['population'].toString()} habitants`;
+
+            // Reset #cityZips content
+            cityCard.querySelector<HTMLSpanElement>('#cityZips')!.innerHTML = '';
+
+            city['codesPostaux'].forEach(codePostal => {
+                const codePostalItem = document.createElement('span');
+                codePostalItem.setAttribute('class', 'badge text-bg-primary');
+                codePostalItem.innerText = codePostal;
+
+                //           <span class="badge text-bg-primary">44000</span>
+                cityCard.querySelector<HTMLSpanElement>('#cityZips')?.appendChild(codePostalItem);
+            });
+            // cityCard.querySelector<HTMLSpanElement>('#cityZips')!.innerText = city['codesPostaux'].toString();
 
             document.querySelector('#results')?.append(cityCard);
         }
     });
 }
+
+document.getElementById('modeToggler')?.addEventListener('click', toggleDarkLightMode);
