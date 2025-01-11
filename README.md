@@ -16,44 +16,7 @@ Objectif : Travailler TypeScript avec les API.
 - [Bootstrap 5.3.3](https://getbootstrap.com/ 'Site officiel de Bootstrap')
 
 
-<!-- ### Prérequis
-
-Conçu en utilisant les *modules*, pour lancer le projet, il est nécessaire de passer par un serveur
-
-1. Ouvrer un terminal de commandes
-
-2. Entrer les lignes qui suivent
-
-```bash
-npx http-server 
-```
-
-3. Après installation et lancement du serveur, le terminal affiche :
-
-```bash
-Starting up http-server, serving ./
-
-http-server version: 14.1.1
-
-http-server settings: 
-CORS: disabled
-Cache: 3600 seconds
-Connection Timeout: 120 seconds
-Directory Listings: visible
-AutoIndex: visible
-Serve GZIP Files: false
-Serve Brotli Files: false
-Default File Extension: none
-
-Available on:
-  http://127.0.0.1:8080 # Cliquez sur ce lien en maintenant Ctrl enfoncé
-  http://192.168.1.198:8080 # Cliquez sur le lien en maintenant Ctrl enfoncé
-Hit CTRL-C to stop the server
-```
-
-4. Vous êtes sur la page principale!
-
-![Page principale](/github/main-screen.png) -->
+<!-- ### Prérequis -->
 
 
 ## :inbox_tray: Installation
